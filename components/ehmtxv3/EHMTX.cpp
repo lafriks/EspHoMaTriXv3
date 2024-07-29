@@ -1043,8 +1043,8 @@ namespace esphome
       return;
     }
 
-    this->display->rectangle(0, 0, 1, 10, this->day_color);
-    this->display->rectangle(2, 0, 7, 10, this->calendar_color);
+    this->display->rectangle(0, 0, 9, 2, this->day_color);
+    this->display->filled_rectangle(0, 2, 9, 6, this->calendar_color);
   }
 
   void EHMTX::draw_day_of_week()
