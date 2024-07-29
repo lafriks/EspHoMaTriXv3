@@ -17,7 +17,7 @@ namespace esphome
     this->today_color = Color(C_RED, C_GREEN, C_BLUE);
     this->day_color = Color(C_RED, 0, 0);
     this->calendar_color = Color(C_RED, C_GREEN, C_BLUE);
-    this->calendar_text_color = Color(C_RED, 0, 0);
+    this->calendar_text_color = Color(0, 0, 0);
     this->weekday_color = Color(CD_RED, CD_GREEN, CD_BLUE);
     this->clock_color = Color(C_RED, C_GREEN, C_BLUE);
     this->rainbow_color = Color(CA_RED, CA_GREEN, CA_BLUE);
