@@ -1,13 +1,13 @@
 ---
 name: Question
 
-about: Open an issue to ask something about EspHoMaTriXv2
+about: Open an issue to ask something about EspHoMatriXv3
 title: "[QUESTION]"
 labels: help wanted, question
 assignees: ''
 ---
 
-<!-- Make sure to read the documentaion (https://github.com/lubeda/EspHoMaTriXv2/blob/main/README.md) before asking questions. -->
+<!-- Make sure to read the documentaion (https://github.com/lafriks/EspHoMaTriXv3/blob/main/README.md) before asking questions. -->
 
 # Question
 
@@ -18,7 +18,7 @@ Add here your question.
 - used Hardware:
   - ESP32 or ESP8266
 
-  - EspHoMaTriXv2 version: [e.g. 2023.5.0]
+  - EspHoMatriXv3 version: [e.g. 2023.5.0]
 
 ## Logs
 

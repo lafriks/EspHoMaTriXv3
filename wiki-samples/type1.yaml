@@ -5,7 +5,7 @@ substitutions:
 external_components:
   - source:
       type: local
-      path: ./EspHoMaTriXv2/components
+      path: ./EspHoMatriXv3/components
     refresh: 60s 
 
 esphome:
@@ -86,9 +86,8 @@ display:
       id(rgb8x32)->tick();
       id(rgb8x32)->draw();
 
-ehmtxv2:
+ehmtxv3:
   id: rgb8x32
-  show_seconds: true
   rainbow_interval: 32
   matrix_component: ehmtx_display
   time_component: ehmtx_time

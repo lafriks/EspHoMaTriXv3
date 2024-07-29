@@ -7,7 +7,7 @@ Assuming you are using a matrix with connected small sides like [this](https://g
 Since 2023.6.4 you can set this option:
 
 ```yaml
-ehmtxv2:
+ehmtxv3:
   ...
   scroll_small_text: true
   ...

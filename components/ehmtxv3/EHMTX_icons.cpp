@@ -3,7 +3,7 @@
 namespace esphome
 {
 
-  EHMTX_Icon::EHMTX_Icon(const uint8_t *data_start, int width, int height, uint32_t animation_frame_count, esphome::image::ImageType type, std::string icon_name, bool revers, uint16_t frame_duration)
+  EHMTXIcon::EHMTXIcon(const uint8_t *data_start, int width, int height, uint32_t animation_frame_count, esphome::image::ImageType type, std::string icon_name, bool revers, uint16_t frame_duration)
       : Animation(data_start, width, height, animation_frame_count, type)
   {
     this->name = icon_name;
@@ -12,7 +12,7 @@ namespace esphome
     this->counting_up = true;
   }
 
-  void EHMTX_Icon::next_frame()
+  void EHMTXIcon::next_frame()
   {
     if (this->get_animation_frame_count() > 1)
     {

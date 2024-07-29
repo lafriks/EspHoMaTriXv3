@@ -21,6 +21,7 @@ svganimtest.html
 servicetest
 .DS_Store
 components/ehmtxv2/animation.py
+components/ehmtxv3/animation.py
 downloadawtrixicons.ps1
 ltr1.png
 ltr2.png

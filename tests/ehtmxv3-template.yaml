@@ -1,5 +1,5 @@
 substitutions:
-  devicename: ehmtxv2
+  devicename: ehmtxv3
   friendly_name: LED Matrix
   board: esp32dev
   matrix_pin: GPIO32 
@@ -16,10 +16,10 @@ external_components:
   - source:
       type: local
       path: ../components
-    components: [ ehmtxv2 ]   
+    components: [ ehmtxv3 ]   
 
 esphome:
-  comment: "EHMTXv2 TEXT from LuBeDa"
+  comment: "EHMTXv3 TEXT from LuBeDa"
   name: $devicename 
   on_boot:
     lambda: |-
@@ -122,14 +122,13 @@ display:
       id(rgb8x32)->tick();
       id(rgb8x32)->draw();
       
-ehmtxv2:
+ehmtxv3:
   id: rgb8x32
   icons2html: true
   matrix_component: ehmtx_display
   time_component: ehmtx_time
   time_format: "%H:%M"
   date_format: "%d.%m."
-  show_seconds: false
   clock_interval: 90
   rtl: true
   boot_logo: "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,63519,63519,63519,63519,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,63519,0,0,0,0,2016,0,0,0,0,0,0,0,0,0,0,31,0,0,0,0,0,0,0,0,0,63488,0,63488,0,0,0,63519,0,0,0,0,2016,2016,0,0,0,65514,0,65514,0,0,0,31,0,0,0,64512,0,0,64512,0,63488,63488,0,63488,63488,0,0,63519,63519,63519,0,0,2016,0,2016,0,65514,0,65514,0,65514,0,31,31,31,0,0,0,64512,64512,0,0,63488,63488,63488,63488,63488,0,0,63519,0,0,0,0,2016,0,2016,0,65514,0,65514,0,65514,0,0,31,0,0,0,0,64512,64512,0,0,0,63488,63488,63488,0,0,0,63519,63519,63519,63519,0,2016,0,2016,0,65514,0,65514,0,65514,0,0,0,31,31,0,64512,0,0,64512,0,0,0,63488,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]"

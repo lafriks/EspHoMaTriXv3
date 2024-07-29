@@ -1,12 +1,12 @@
 ---
 name: Bug report
-about: Create a report to help us improve EspHoMaTriXv2
+about: Create a report to help us improve EspHoMatriXv3
 title: "[BUG]"
 labels: bug
 assignees: ''
 ---
 
-<!-- Make sure to read the documentaion (https://github.com/lubeda/EspHoMaTriXv2/blob/main/README.md) before opening an issue. -->
+<!-- Make sure to read the documentaion (https://github.com/lafriks/EspHoMaTriXv3/blob/main/README.md) before opening an issue. -->
 
 # Bug report
 
@@ -18,7 +18,7 @@ Add a description of the bug. Detail the expected behavior in contrast with the 
 
 - used Hardware:
   - ESP32 or ESP8266
-  - EspHoMaTriXv2 version: [e.g. 2023.5.0]
+  - EspHoMatriXv3 version: [e.g. 2023.5.0]
 
 
 ## To Reproduce

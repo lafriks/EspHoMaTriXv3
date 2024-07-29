@@ -1,17 +1,17 @@
 blueprint:
   name: |-
-    ehmtxv2: Hide screen elements on 8x32 RGB-matrix
-  description: Removes the gauge, indicator or alarm element from your EspHoMaTriXv2 display.
+    ehmtxv3: Hide screen elements on 8x32 RGB-matrix
+  description: Removes the gauge, indicator or alarm element from your EspHoMatriXv3 display.
   domain: automation
-  source_url: https://github.com/lubeda/EspHoMaTriXv2/tree/main/copy2esphome
+  source_url: https://github.com/lafriks/EspHoMaTriXv3/tree/main/copy2esphome
   input:
     ehmtx_device:
-      name: Which EspHoMaTriXv2 device to use
+      name: Which EspHoMatriXv3 device to use
       selector:
         device:
           filter:
           - integration: esphome
-            model: EHMTXv2
+            model: EHMTXv3
     trigger_sensor:
       name: Which state change triggers this automation
       selector:

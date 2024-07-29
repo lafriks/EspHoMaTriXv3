@@ -1,12 +1,12 @@
 ---
 name: Feature request
-about: Suggest an idea for this EspHoMaTriXv2
+about: Suggest an idea for this EspHoMatriXv3
 title: "[FEATURE REQUEST]"
 labels: feature request
 assignees: ''
 ---
 
-<!-- Make sure to read the documentaion (https://github.com/lubeda/EspHoMaTriXv2/blob/main/README.md) before opening an issue. -->
+<!-- Make sure to read the documentaion (https://github.com/lafriks/EspHoMaTriXv3/blob/main/README.md) before opening an issue. -->
 
 # Feature Request
 

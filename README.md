@@ -1,13 +1,9 @@
-# EspHoMaTriX version 2 (EHMTXv2)
-
-[donation-badge]:https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white
-[donation-url]: https://www.paypal.com/donate/?hosted_button_id=FZDKSLQ46HJTU
+# EspHoMaTriX version 3 (EHMTXv3)
 
 ![Home Assistant](https://img.shields.io/badge/home%20assistant-%2341BDF5.svg?style=for-the-badge&logo=home-assistant&logoColor=white)
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
-[![Donate][donation-badge]][donation-url]
-[![Publish wiki](https://github.com/lubeda/EspHoMaTriXv2/actions/workflows/wiki.yaml/badge.svg)](https://github.com/lubeda/EspHoMaTriXv2/actions/workflows/wiki.yaml)
-[![Build](https://github.com/lubeda/EspHoMaTriXv2/actions/workflows/build.yaml/badge.svg)](https://github.com/lubeda/EspHoMaTriXv2/actions/workflows/build.yaml)
+[![Publish wiki](https://github.com/lafriks/EspHoMaTriXv3/actions/workflows/wiki.yaml/badge.svg)](https://github.com/lafriks/EspHoMaTriXv3/actions/workflows/wiki.yaml)
+[![Build](https://github.com/lafriks/EspHoMaTriXv3/actions/workflows/build.yaml/badge.svg)](https://github.com/lafriks/EspHoMaTriXv3/actions/workflows/build.yaml)
 
 ## Important
 
@@ -27,7 +23,7 @@ output:
 
 ## Attention
 
-Some updates of esphome will interfere with EspHoMaTriXv2, like the update of esphome to 2023.7.0. It made a change to all YAML files necessary.
+Some updates of esphome will interfere with EspHoMatriXv3, like the update of esphome to 2023.7.0. It made a change to all YAML files necessary.
 
 You have to add this to your YAML
 
@@ -43,7 +39,7 @@ animation:
 
 You have also to copy the file 1pixel.gif from the copy2esphome folder to the directory with your yaml.
 
-Also there might be [breaking changes](#breaking-changes) due to a redesign of EspHoMaTriXv2.
+Also there might be [breaking changes](#breaking-changes) due to a redesign of EspHoMatriXv3.
 
 ## Important information
 
@@ -57,7 +53,7 @@ An easy to setup and extensible DIY LED Matrix status display built with a 8x32 
 
 If you like to customize and tinker you can use this custom component as a satellite voice control microphone for home assistant. [Youtube](https://www.youtube.com/watch?v=CsOir14DCbM)
 
-For additional tips and tricks be sure to check out the [WIKI](https://github.com/lubeda/EspHoMaTriXv2/wiki)
+For additional tips and tricks be sure to check out the [WIKI](https://github.com/lafriks/EspHoMaTriXv3/wiki)
 
 ## Background
 
@@ -73,7 +69,7 @@ All of the various solutions have their pros and cons. I tried some and used AWT
 
 ### Features
 
-Based on a 8x32 RGB matrix, it displays a clock, the date and up to 24 other 'screens' provided by Home Assistant. Each screen (value/text) can be associated with a 8x8 bit RGB icon or GIF animation (see [installation](#installation-of-esphomatrixv2-custom-component)). The values/text can be updated or deleted from the display queue. Each screen has a lifetime, if not refreshed in its lifetime, it will disappear. Even 8x32 GIF animations are possible. You can control nearly everything of the component.
+Based on a 8x32 RGB matrix, it displays a clock, the date and up to 24 other 'screens' provided by Home Assistant. Each screen (value/text) can be associated with a 8x8 bit RGB icon or GIF animation (see [installation](#installation-of-EspHoMatriXv3-custom-component)). The values/text can be updated or deleted from the display queue. Each screen has a lifetime, if not refreshed in its lifetime, it will disappear. Even 8x32 GIF animations are possible. You can control nearly everything of the component.
 
 ### State
 
@@ -111,7 +107,7 @@ Connect your Ulanzi device to your host with USB-C and flash the firmware.
 
 #### Step 3
 
-Copy the blueprints `EHMTX_easy_*.yaml` to your blueprint path (usually /config/blueprints/automation/) in a subfolder named `ehmtxv2`.
+Copy the blueprints `EHMTX_easy_*.yaml` to your blueprint path (usually /config/blueprints/automation/) in a subfolder named `ehmtxv3`.
 
 Reload your automations and have fun after configuring some automations with this blueprint.
 
@@ -134,7 +130,7 @@ This is for the more advanced users. If you understand the concept of esphome, y
 #### Concept
 
 You can add screens to a queue and all these screens are displayed one after another.
-![timing](./images/timingv2.png)
+![timing](./images/timingv3.png)
 Each screen can display different information or animation or text, even in rainbow color. They all have a lifetime, if a screen isn't refreshed during its lifetime it will be removed from the queue. If there is nothing left in the queue, the date and time screens are displayed. Some screens can show additional features like an alarm or rindicator see [elements](#display-elements).
 You can add screens from home assistant with service-calls or from esphome via lambdas in your YAML.
 
@@ -331,9 +327,9 @@ hide_gauge => no parameter
 void hide_gauge();
 ```
 
-#### Installation of **EspHoMaTriXv2** custom component
+#### Installation of **EspHoMatriXv3** custom component
 
-**EspHoMaTriXv2** is a custom component, you have to include it in your YAML configuration. To always use the newest features, you should use the repo, to use a stable version, you copy a working version to your esphome installation.
+**EspHoMatriXv3** is a custom component, you have to include it in your YAML configuration. To always use the newest features, you should use the repo, to use a stable version, you copy a working version to your esphome installation.
 
 ##### use of local copy
 
@@ -354,17 +350,17 @@ Use the GitHub repo as a component. Esphome refreshes the external components �
 external_components:
   - source:
       type: git
-      url: https://github.com/lubeda/EspHoMaTriXv2
+      url: https://github.com/lafriks/EspHoMaTriXv3
       ref: stable # optional select a special branch or tag
 ```
 
 #### Addressable_light component
 
-The **EspHoMaTriXv2** component requires a 8x32 pixel addressable_light, it is referenced by the ID `matrix_component`.
+The **EspHoMatriXv3** component requires a 8x32 pixel addressable_light, it is referenced by the ID `matrix_component`.
 
 See the default [options](https://esphome.io/components/display/index.html)
 
-There are some different matrices-types on the market, to adapt them to **EspHoMaTriXv2** you have to find the proper pixel mapper. If there is garbage on your display, try the other `pixel_mapper`. Here are the most common types for flexible 8x32 matrices:
+There are some different matrices-types on the market, to adapt them to **EspHoMatriXv3** you have to find the proper pixel mapper. If there is garbage on your display, try the other `pixel_mapper`. Here are the most common types for flexible 8x32 matrices:
 
 ##### Type 1
 
@@ -413,7 +409,7 @@ display:
 
 ##### How to configure the pixel_mapper
 
-You have to configure this `lambda` under the `display:` section to use the **EspHoMaTriXv2** component
+You have to configure this `lambda` under the `display:` section to use the **EspHoMatriXv3** component
 
 ```yaml
 display:
@@ -484,7 +480,7 @@ font:
 
 #### Icons and Animations
 
-Download and install all needed icons (.jpg/.png) and animations (.GIF) under the `ehmtxv2:` key. All icons have to be 8x8 or 8x32 pixels in size. If necessary, scale them with gimp, check “as animation” for GIFs.
+Download and install all needed icons (.jpg/.png) and animations (.GIF) under the `ehmtxv3:` key. All icons have to be 8x8 or 8x32 pixels in size. If necessary, scale them with gimp, check “as animation” for GIFs.
 
 You can also specify a URL to directly download the image file. The URLs will only be downloaded once at compile time, so there is no additional traffic on the hosting website.
 
@@ -527,16 +523,15 @@ See also [icon parameter](#icons)
 
 #### Configuration
 
-##### ehmtxv2 component
+##### ehmtxv3 component
 
 This component is highly customizable.
 
 ***Example***
 
 ```yaml
-ehmtxv2:
+ehmtxv3:
   id: rgb8x32
-  show_seconds: true
   matrix_component: ehmtx_display
   time_component: ehmtx_time
   icons2html: true
@@ -561,8 +556,6 @@ ehmtxv2:
 **id** (required, ID): Manually specify the ID used for code generation and in service definitions.
 
 **date_format** (optional, string): formats the date display with [strftime syntax](https://esphome.io/components/time.html?highlight=strftime), defaults `"%d.%m."` (use `"%m.%d."` for the US)
-
-**show_seconds** (optional, boolean): toggle/blink an indicator-pixel each seconds while the clock is displayed (default: false)
 
 **time_format** (optional, string): formats the date display with [strftime syntax](https://esphome.io/components/time.html?highlight=strftime), defaults `"%H:%M"` (use `"%I:%M%p"` for the US)
 
@@ -728,7 +721,7 @@ Experienced programmers can use these public methods:
 
 ### Local triggers
 
-To use the display without home assistant automations, you may use the [advanced functionality](#change-configuration-during-runtime) with triggers. The triggers can be fired by sensors, time or by the ehmtxv2 component.
+To use the display without home assistant automations, you may use the [advanced functionality](#change-configuration-during-runtime) with triggers. The triggers can be fired by sensors, time or by the ehmtxv3 component.
 
 #### on_add_screen
 
@@ -743,13 +736,13 @@ See the examples:
 ##### Write information to esphome log
 
 ```yaml
-ehmtxv2:
+ehmtxv3:
   ....
     on_add_screen:
     then:  
       - logger.log:
           format: 'add screen: %s, mode: %d'
-          tag: "EHMTXv2 sample"
+          tag: "EHMTXv3 sample"
           args:
             - icon.c_str()
             - mode
@@ -768,7 +761,7 @@ The trigger ```on_icon_error``` is triggered if you try to add a screen with a n
 See the examples:
 
 ```yaml
-ehmtxv2:
+ehmtxv3:
   ....
   on_next_screen:
     lambda: |-
@@ -788,7 +781,7 @@ See the examples:
 ##### Write information to esphome log
 
 ```yaml
-ehmtxv2:
+ehmtxv3:
   ....
   on_next_screen:
     lambda: |-
@@ -801,7 +794,7 @@ ehmtxv2:
 To send data back to home assistant, you can use events.
 
 ```yaml
-ehmtxv2:
+ehmtxv3:
   ....
   on_next_screen:
     - homeassistant.event:
@@ -823,7 +816,7 @@ See the examples:
 ##### Change something for each clock circle
 
 ```yaml
-ehmtxv2:
+ehmtxv3:
   ....
   on_next_clock:
     lambda: |-
@@ -1005,7 +998,7 @@ e.g.
 
 ### Specific icons per condition
 
-Add an icon per weather condition to the ehmtxv2 component
+Add an icon per weather condition to the ehmtxv3 component
 
 ```yaml
   - id: weather_clear_night
@@ -1179,7 +1172,7 @@ THE SOFTWARE IS PROVIDED “AS IS”, use at your own risk!
 ## Thanks
 
 - **[blakadder](https://github.com/blakadder)** for his contribution (cleanup README.md, fixed sample)
-- **[dbuezas](https://github.com/dbuezas)** for his fonts [infos](https://github.com/lubeda/EspHoMaTriXv2/issues/63)
+- **[dbuezas](https://github.com/dbuezas)** for his fonts [infos](https://github.com/lafriks/EspHoMaTriXv3/issues/63)
 - **[jfurtner](https://github.com/jfurtner)** for his the on_start_running trigger and a new parameter
 - **[andrew-codechimp](https://github.com/andrew-codechimp)** for his contribution (display on/off & del_screen "*" & show_clock with 0) and improved blueprint slelection
 - **[jd1](https://github.com/jd1)** for his contributions

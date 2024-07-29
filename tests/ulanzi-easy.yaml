@@ -58,13 +58,13 @@ globals:
 external_components:
   - source:
       type: git
-      url: https://github.com/lubeda/EspHoMaTriXv2
+      url: https://github.com/lafriks/EspHoMaTriXv3
       ref: main
     refresh: 60s 
-    components: [ ehmtxv2 ]   
+    components: [ ehmtxv3 ]   
 
 esphome:
-  comment: "EHMTXv2 from LuBeDa"
+  comment: "EHMTXv3 from LuBeDa"
   name: $devicename 
   on_boot:
     then:
@@ -213,14 +213,13 @@ display:
       id(rgb8x32)->tick();
       id(rgb8x32)->draw();
       
-ehmtxv2:
+ehmtxv3:
   id: rgb8x32
   icons2html: true
   matrix_component: ehmtx_display
   time_component: ehmtx_time
   time_format: "%H:%M"
   date_format: "%d.%m."
-  show_seconds: false
   default_font_id: default_font
   default_font_yoffset: 8
   special_font_id: default_font 

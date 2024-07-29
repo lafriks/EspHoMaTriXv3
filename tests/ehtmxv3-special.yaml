@@ -1,5 +1,5 @@
 substitutions:
-  devicename: ehmtxv2
+  devicename: ehmtxv3
   friendly_name: "LED Matrix"
   board: d1_mini_lite
   matrix_pin: GPIO12 
@@ -8,7 +8,7 @@ external_components:
   - source:
       type: local
       path: ../components
-    components: [ ehmtxv2 ]   
+    components: [ ehmtxv3 ]   
 
 animation:
   - id: animation_black
@@ -19,7 +19,7 @@ image:
     file: 1pixel.gif
 
 esphome:
-  comment: "EHMTXv2 TEXT from LuBeDa 8266"
+  comment: "EHMTXv3 TEXT from LuBeDa 8266"
   name: $devicename 
   on_boot:
     lambda: |-
@@ -117,14 +117,13 @@ display:
       id(rgb8x32)->tick();
       id(rgb8x32)->draw();
       
-ehmtxv2:
+ehmtxv3:
   id: rgb8x32
   icons2html: true
   matrix_component: ehmtx_display
   time_component: ehmtx_time
   time_format: "%H:%M"
   date_format: "%d.%m."
-  show_seconds: false
   clock_interval: 90
   scroll_interval: 120
   scroll_small_text: true

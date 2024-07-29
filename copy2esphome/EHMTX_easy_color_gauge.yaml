@@ -1,19 +1,19 @@
 blueprint:
   name: |-
-    ehmtxv2: colored bar/gauge at the left side
+    ehmtxv3: colored bar/gauge at the left side
   description: |-
     feed this function with eight rgb565 values, to convert from rgb888 see this:
     {{ (((red | bitwise_and(0xf8)) / 8) | int ) * 2048 + (((green | bitwise_and(0xfC)) / 4 )| int) * 32 + ((blue | bitwise_and(0xf8)) / 8 )| int }}
   domain: script
-  source_url: https://github.com/lubeda/EspHoMaTriXv2/tree/main/copy2esphome
+  source_url: https://github.com/lafriks/EspHoMaTriXv3/tree/main/copy2esphome
   input:
     ehmtx_device:
-      name: Which EspHoMaTriXv2 device to use
+      name: Which EspHoMatriXv3 device to use
       selector:
         device:
           filter:
           - integration: esphome
-            model: EHMTXv2
+            model: EHMTXv3
     pix0_color:
       name: Color of pixel 1
       selector:

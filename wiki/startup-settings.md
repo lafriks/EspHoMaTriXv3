@@ -7,7 +7,7 @@
 Since 2023.7.0 you can use a trigger with lambdas
 
 ```yaml
-ehmtxv2:
+ehmtxv3:
   ...
   on_start_running:
     then:

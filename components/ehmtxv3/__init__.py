@@ -16,7 +16,7 @@ from esphome.cpp_generator import RawExpression
 _LOGGER = logging.getLogger(__name__)
 
 DEPENDENCIES = ["display", "light", "api"]
-AUTO_LOAD = ["ehmtxv2","json"]
+AUTO_LOAD = ["ehmtxv3", "json"]
 IMAGE_TYPE_RGB565 = 4
 MAXFRAMES = 110
 MAXICONS = 90
@@ -26,11 +26,6 @@ ICONBUFFERSIZE = ICONWIDTH * ICONHEIGHT * 4
 SVG_ICONSTART = '<svg width="80px" height="80px" viewBox="0 0 80 80">'
 SVG_FULL_SCREEN_START = '<svg width="320px" height="80px" viewBox="0 0 320 80">'
 SVG_END = "</svg>"
-
-logging.warning(f"")
-logging.warning(f"This will only work with esphome >= 2023.7.0")
-logging.warning(f"Please check the documentation and wiki https://github.com/lubeda/EspHoMaTriXv2")
-logging.warning(f"")
 
 def rgb565_svg(x,y,r,g,b):
     return f"<rect style=\"fill:rgb({(r << 3) | (r >> 2)},{(g << 2) | (g >> 4)},{(b << 3) | (b >> 2)});\" x=\"{x*10}\" y=\"{y*10}\" width=\"10\" height=\"10\"/>"
@@ -43,7 +38,7 @@ def rgb565_888(v565):
 
 ehmtx_ns = cg.esphome_ns.namespace("esphome")
 EHMTX_ = ehmtx_ns.class_("EHMTX", cg.Component)
-Icons_ = ehmtx_ns.class_("EHMTX_Icon")
+Icons_ = ehmtx_ns.class_("EHMTXIcon")
 
 StartRunningTrigger = ehmtx_ns.class_(
     "EHMTXStartRunningTrigger", automation.Trigger.template(cg.std_string)
@@ -107,7 +102,6 @@ CONF_ON_NEXT_CLOCK = "on_next_clock"
 CONF_ON_ICON_ERROR = "on_icon_error"
 CONF_ON_ADD_SCREEN = "on_add_screen"
 CONF_ON_EXPIRED_SCREEN= "on_expired_screen"
-CONF_SHOW_SECONDS = "show_seconds"
 CONF_SCROLL_SMALL_TEXT = "scroll_small_text"
 CONF_ALLOW_EMPTY_SCREEN = "allow_empty_screen"
 CONF_WEEK_START_MONDAY = "week_start_monday"
@@ -131,9 +125,6 @@ EHMTX_SCHEMA = cv.Schema({
     ): cv.boolean,
      cv.Optional(
         CONF_RTL, default=False
-    ): cv.boolean,
-    cv.Optional(
-        CONF_SHOW_SECONDS, default=False
     ): cv.boolean,
     cv.Optional(
         CONF_SHOWDATE, default=True
@@ -246,7 +237,7 @@ EHMTX_SCHEMA = cv.Schema({
 
 CONFIG_SCHEMA = cv.All(font.validate_pillow_installed, EHMTX_SCHEMA)
 
-CODEOWNERS = ["@lubeda"]
+CODEOWNERS = ["@lafriks"]
 
 async def to_code(config):
 
@@ -419,38 +410,37 @@ async def to_code(config):
     cg.add(var.set_brightness(config[CONF_BRIGHTNESS]))
     
     if config[CONF_ALWAYS_SHOW_RLINDICATORS]:
-        cg.add_define("EHMTXv2_ALWAYS_SHOW_RLINDICATORS")
+        cg.add_define("EHMTXv3_ALWAYS_SHOW_RLINDICATORS")
 
-    cg.add_define("EHMTXv2_SCROLL_INTERVALL",config[CONF_SCROLLINTERVAL])
-    cg.add_define("EHMTXv2_RAINBOW_INTERVALL",config[CONF_RAINBOWINTERVAL])
-    cg.add_define("EHMTXv2_FRAME_INTERVALL",config[CONF_FRAMEINTERVAL])
-    cg.add_define("EHMTXv2_CLOCK_INTERVALL",config[CONF_CLOCKINTERVAL])
-    cg.add_define("EHMTXv2_SCROLL_COUNT",config[CONF_SCROLLCOUNT])
-    cg.add_define("EHMTXv2_WEEK_START",config[CONF_WEEK_START_MONDAY])
-    cg.add_define("EHMTXv2_DEFAULT_FONT_OFFSET_X",config[CONF_DEFAULT_FONT_XOFFSET])
-    cg.add_define("EHMTXv2_DEFAULT_FONT_OFFSET_Y",config[CONF_DEFAULT_FONT_YOFFSET])
-    cg.add_define("EHMTXv2_SPECIAL_FONT_OFFSET_X",config[CONF_SPECIAL_FONT_XOFFSET])
-    cg.add_define("EHMTXv2_SPECIAL_FONT_OFFSET_Y",config[CONF_SPECIAL_FONT_YOFFSET])
-    cg.add_define("EHMTXv2_DEFAULT_CLOCK_FONT",config[CONF_CLOCKFONT])    
-    cg.add_define("EHMTXv2_DATE_FORMAT",config[CONF_DATE_FORMAT])    
-    cg.add_define("EHMTXv2_TIME_FORMAT",config[CONF_TIME_FORMAT])    
+    cg.add_define("EHMTXv3_SCROLL_INTERVALL",config[CONF_SCROLLINTERVAL])
+    cg.add_define("EHMTXv3_RAINBOW_INTERVALL",config[CONF_RAINBOWINTERVAL])
+    cg.add_define("EHMTXv3_FRAME_INTERVALL",config[CONF_FRAMEINTERVAL])
+    cg.add_define("EHMTXv3_CLOCK_INTERVALL",config[CONF_CLOCKINTERVAL])
+    cg.add_define("EHMTXv3_SCROLL_COUNT",config[CONF_SCROLLCOUNT])
+    cg.add_define("EHMTXv3_WEEK_START",config[CONF_WEEK_START_MONDAY])
+    cg.add_define("EHMTXv3_DEFAULT_FONT_OFFSET_X",config[CONF_DEFAULT_FONT_XOFFSET])
+    cg.add_define("EHMTXv3_DEFAULT_FONT_OFFSET_Y",config[CONF_DEFAULT_FONT_YOFFSET])
+    cg.add_define("EHMTXv3_SPECIAL_FONT_OFFSET_X",config[CONF_SPECIAL_FONT_XOFFSET])
+    cg.add_define("EHMTXv3_SPECIAL_FONT_OFFSET_Y",config[CONF_SPECIAL_FONT_YOFFSET])
+    cg.add_define("EHMTXv3_DEFAULT_CLOCK_FONT",config[CONF_CLOCKFONT])    
+    cg.add_define("EHMTXv3_DATE_FORMAT",config[CONF_DATE_FORMAT])    
+    cg.add_define("EHMTXv3_TIME_FORMAT",config[CONF_TIME_FORMAT])    
     
     if config.get(CONF_BOOTLOGO):
-        cg.add_define("EHMTXv2_BOOTLOGO",config[CONF_BOOTLOGO])
+        cg.add_define("EHMTXv3_BOOTLOGO",config[CONF_BOOTLOGO])
     
     if config[CONF_SCROLL_SMALL_TEXT]:
-        cg.add_define("EHMTXv2_SCROLL_SMALL_TEXT")
+        cg.add_define("EHMTXv3_SCROLL_SMALL_TEXT")
     if config[CONF_ALLOW_EMPTY_SCREEN]:
-        cg.add_define("EHMTXv2_ALLOW_EMPTY_SCREEN")
+        cg.add_define("EHMTXv3_ALLOW_EMPTY_SCREEN")
     if (config[CONF_BLENDSTEPS]) >0:
-        cg.add_define("EHMTXv2_BLEND_STEPS",config[CONF_BLENDSTEPS])
+        cg.add_define("EHMTXv3_BLEND_STEPS",config[CONF_BLENDSTEPS])
 
     if config[CONF_RTL]:
-        cg.add_define("EHMTXv2_USE_RTL")    
+        cg.add_define("EHMTXv3_USE_RTL")    
     
     cg.add(var.set_show_day_of_week(config[CONF_SHOWDOW]))  
     cg.add(var.set_show_date(config[CONF_SHOWDATE]))
-    cg.add(var.set_show_seconds(config[CONF_SHOW_SECONDS]))
     
     for conf in config.get(CONF_ON_NEXT_SCREEN, []):
         trigger = cg.new_Pvariable(conf[CONF_TRIGGER_ID], var)

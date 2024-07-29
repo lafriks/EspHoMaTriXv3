@@ -50,7 +50,7 @@ ehmtx:
 ## Step 2: enter **home assistant automation:**
 
 ```yaml
-alias: EHMTXv2 Weather
+alias: EHMTXv3 Weather
 description: shows the local weatherdata with the icon based on cloud service
 trigger:
   - platform: state

@@ -1,8 +1,8 @@
-# Welcome to the EspHoMaTriXv2 wiki
+# Welcome to the EspHoMatriXv3 wiki
 
 ## Usage examples
 
-- [Display a timer on your ehmtxv2](display-timer)
+- [Display a timer on your ehmtxv3](display-timer)
 - [weather display](weather-display)
 - [matrix used as "circle"](rotating-text)
 
