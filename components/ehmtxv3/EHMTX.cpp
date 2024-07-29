@@ -177,12 +177,12 @@ namespace esphome
     }
     screen->status();
   }
-#endif
-#ifdef USE_ESP8266
+#else
   void EHMTX::bitmap_screen(std::string text, int lifetime, int screen_time)
   {
     ESP_LOGW(TAG, "bitmap_screen is not available on ESP8266");
   }
+
   void EHMTX::bitmap_small(std::string i, std::string t, int l, int s, bool f, int r, int g, int b)
   {
     ESP_LOGW(TAG, "bitmap_screen is not available on ESP8266");
@@ -379,11 +379,11 @@ namespace esphome
   {
     this->bitmap_screen(EHMTXv3_BOOTLOGO, 1, 10);
   }
+
   void EHMTX::display_version()
   {
     this->bitmap_small("[2016,0,0,0,2016,0,0,0,2016,0,0,0,2016,0,0,0,2016,0,0,0,2016,0,0,0,0,2016,0,2016,0,31,31,0,0,0,2016,0,31,0,0,31,0,0,0,0,0,0,31,0,0,0,0,0,0,31,0,0,0,0,0,0,31,31,31,31]", EHMTX_VERSION, 1, 10);
   }
-
 #endif
 #endif
 
@@ -423,8 +423,8 @@ namespace esphome
         this->bitmap_screen(EHMTXv3_BOOTLOGO, 1, 10);
 #endif
 #endif
-        this->clock_screen(14 * 24 * 60, this->clock_time, EHMTXv3_DEFAULT_CLOCK_FONT, C_RED, C_GREEN, C_BLUE);
-        this->date_screen(14 * 24 * 60, (int)this->clock_time / 2, EHMTXv3_DEFAULT_CLOCK_FONT, C_RED, C_GREEN, C_BLUE);
+        this->clock_screen(14 * 24 * 60, this->clock_time, EHMTXv3_DEFAULT_CLOCK_FONT, this->clock_color[0], this->clock_color[1], this->clock_color[2]);
+        this->date_screen(14 * 24 * 60, (int)this->clock_time / 2, EHMTXv3_DEFAULT_CLOCK_FONT, this->clock_color[0], this->clock_color[1], this->clock_color[2]);
         this->is_running = true;
         for (auto *t : on_start_running_triggers_)
         {
@@ -463,6 +463,7 @@ namespace esphome
       }
     }
   }
+
   uint8_t EHMTX::find_oldest_queue_element()
   {
     uint8_t hit = MAXQUEUE;
@@ -629,7 +630,7 @@ namespace esphome
 #ifndef EHMTXv3_ALLOW_EMPTY_SCREEN
           ESP_LOGW(TAG, "tick: nothing to do. Restarting clock display!");
           this->clock_screen(24 * 60, this->clock_time, false, this->clock_color[0], this->clock_color[1], this->clock_color[2]);
-          this->date_screen(24 * 60, (int)this->clock_time / 2, false, C_RED, C_GREEN, C_BLUE);
+          this->date_screen(24 * 60, (int)this->clock_time / 2, false, this->clock_color[0], this->clock_color[1], this->clock_color[2]);
           this->next_action_time = ts + this->clock_time;
 #endif
         }
