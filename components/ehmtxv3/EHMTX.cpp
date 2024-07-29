@@ -17,6 +17,7 @@ namespace esphome
     this->today_color = Color(C_RED, C_GREEN, C_BLUE);
     this->day_color = Color(C_RED, 0, 0);
     this->calendar_color = Color(C_RED, C_GREEN, C_BLUE);
+    this->calendar_text_color = Color(0, 0, 0);
     this->weekday_color = Color(CD_RED, CD_GREEN, CD_BLUE);
     this->clock_color = Color(C_RED, C_GREEN, C_BLUE);
     this->rainbow_color = Color(CA_RED, CA_GREEN, CA_BLUE);
@@ -1043,8 +1044,14 @@ namespace esphome
       return;
     }
 
+    auto day = this->clock->now().day_of_month;
+    auto xoffset = day < 10 ? 2 : 0;
+
     this->display->rectangle(0, 0, 9, 2, this->day_color);
     this->display->filled_rectangle(0, 2, 9, 6, this->calendar_color);
+    this->display->print(xoffset + 1, 2, this->special_font, this->calendar_text_color,
+                         esphome::display::TextAlign::BASELINE_RIGHT,
+                         std::to_string(day).c_str());
   }
 
   void EHMTX::draw_day_of_week()
