@@ -139,6 +139,7 @@ namespace esphome
     void set_display(addressable_light::AddressableLightDisplay *disp);
     void set_clock_time(uint16_t t = 10);
     void set_show_day_of_week(bool b = true);
+    void set_show_day_of_month(bool b = true);
     void set_show_date(bool b = true);
     void set_brightness(int b);
     void set_display_on();
