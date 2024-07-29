@@ -1049,9 +1049,8 @@ namespace esphome
 
     this->display->rectangle(0, 0, 9, 2, this->day_color);
     this->display->filled_rectangle(0, 2, 9, 6, this->calendar_color);
-    this->display->print(xoffset + 1, 2, this->special_font, this->calendar_text_color,
-                         esphome::display::TextAlign::BASELINE_RIGHT,
-                         std::to_string(day).c_str());
+    this->display->printf(xoffset + 1, 2, this->special_font, this->calendar_text_color,
+                         "%d", day);
   }
 
   void EHMTX::draw_day_of_week()
