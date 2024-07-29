@@ -987,6 +987,19 @@ namespace esphome
     }
   }
 
+  void EHMTX::set_show_day_of_month(bool b)
+  {
+    this->show_day_of_month = b;
+    if (b)
+    {
+      ESP_LOGI(TAG, "show day of month");
+    }
+    else
+    {
+      ESP_LOGI(TAG, "don't show day of month");
+    }
+  }
+
   void EHMTX::set_brightness(int value)
   {
     if (value < 256)
@@ -1025,19 +1038,20 @@ namespace esphome
   {
     if (this->show_day_of_week)
     {
-      int offset = 11;
+      int offset = this->show_day_of_month ? 9 : 2;
+      int size = this->show_day_of_month ? 2 : 3;
       auto dow = this->clock->now().day_of_week - 1; // SUN = 0
+
       for (uint8_t i = 0; i <= 6; i++)
       {
+        Color color = this->weekday_color;
         if (((!EHMTXv3_WEEK_START) && (dow == i)) ||
             ((EHMTXv3_WEEK_START) && ((dow == (i + 1)) || ((dow == 0 && i == 6)))))
         {
-          this->display->line(offset + i * 3 + 1, 7, offset + i * 3 + 2, 7, this->today_color);
+          color = this->today_color;
         }
-        else
-        {
-          this->display->line(offset + i * 3 + 1, 7, offset + i * 3 + 2, 7, this->weekday_color);
-        }
+        
+        this->display->line(offset + i * (size + 1) + 1, 7, offset + i * (size + 1) + size, 7, color);
       }
     }
   };
@@ -1053,6 +1067,10 @@ namespace esphome
     if (this->show_day_of_week)
     {
       ESP_LOGCONFIG(TAG, "Show day of week");
+    }
+    if (this->show_day_of_month)
+    {
+      ESP_LOGCONFIG(TAG, "Show day of month");
     }
     if (this->show_date)
     {

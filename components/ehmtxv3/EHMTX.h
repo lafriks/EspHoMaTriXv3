@@ -64,6 +64,7 @@ namespace esphome
     uint32_t boot_anim = 0;
     uint8_t screen_pointer;
     bool show_day_of_week;
+    bool show_day_of_month;
 
     std::vector<EHMTXNextScreenTrigger *> on_next_screen_triggers_;
     std::vector<EHMTXIconErrorTrigger *> on_icon_error_triggers_;

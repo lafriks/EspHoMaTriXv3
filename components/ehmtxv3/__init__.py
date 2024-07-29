@@ -75,6 +75,7 @@ CONF_BOOTLOGO = "boot_logo"
 CONF_LIFETIME = "lifetime"
 CONF_ICONS = "icons"
 CONF_SHOWDOW = "show_dow"
+CONF_SHOWDAY = "show_day"
 CONF_SHOWDATE = "show_date"
 CONF_RTL = "rtl"
 CONF_FRAMEDURATION = "frame_duration"
@@ -134,6 +135,9 @@ EHMTX_SCHEMA = cv.Schema({
     ): cv.boolean,
     cv.Optional(
         CONF_SHOWDOW, default=True
+    ): cv.boolean,
+    cv.Optional(
+        CONF_SHOWDAY, default=True
     ): cv.boolean,
     cv.Optional(
         CONF_SHOWDATE, default=True
@@ -439,7 +443,8 @@ async def to_code(config):
     if config[CONF_RTL]:
         cg.add_define("EHMTXv3_USE_RTL")    
     
-    cg.add(var.set_show_day_of_week(config[CONF_SHOWDOW]))  
+    cg.add(var.set_show_day_of_week(config[CONF_SHOWDOW]))
+    cg.add(var.set_show_day_of_month(config[CONF_SHOWDAY]))
     cg.add(var.set_show_date(config[CONF_SHOWDATE]))
     
     for conf in config.get(CONF_ON_NEXT_SCREEN, []):
