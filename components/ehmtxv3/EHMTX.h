@@ -128,6 +128,7 @@ namespace esphome
     uint8_t find_icon(std::string name);
     uint8_t find_last_clock();
     bool string_has_ending(std::string const &fullString, std::string const &ending);
+    void draw_day_of_month();
     void draw_day_of_week();
     void show_all_icons();
     void tick();

@@ -216,6 +216,7 @@ namespace esphome
 
           if (this->mode != MODE_RAINBOW_CLOCK)
           {
+            this->config_->draw_day_of_month();
             this->config_->draw_day_of_week();
           }
         }
@@ -235,6 +236,7 @@ namespace esphome
 
           if (this->mode != MODE_RAINBOW_DATE)
           {
+            this->config_->draw_day_of_month();
             this->config_->draw_day_of_week();
           }
         }

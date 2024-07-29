@@ -15,6 +15,8 @@ namespace esphome
     this->hue_ = 0;
     this->text_color = Color(C_RED, C_GREEN, C_BLUE);
     this->today_color = Color(C_RED, C_GREEN, C_BLUE);
+    this->day_color = Color(C_RED, 0, 0);
+    this->calendar_color = Color(C_RED, C_GREEN, C_BLUE);
     this->weekday_color = Color(CD_RED, CD_GREEN, CD_BLUE);
     this->clock_color = Color(C_RED, C_GREEN, C_BLUE);
     this->rainbow_color = Color(CA_RED, CA_GREEN, CA_BLUE);
@@ -1034,25 +1036,38 @@ namespace esphome
     ESP_LOGD(TAG, "set_clock");
   }
 
+  void EHMTX::draw_day_of_month()
+  {
+    if (!this->show_day_of_month)
+    {
+      return;
+    }
+
+    this->display->rectangle(0, 0, 1, 10, this->day_color);
+    this->display->rectangle(2, 0, 7, 10, this->calendar_color);
+  }
+
   void EHMTX::draw_day_of_week()
   {
-    if (this->show_day_of_week)
+    if (!this->show_day_of_week)
     {
-      int offset = this->show_day_of_month ? 9 : 2;
-      int size = this->show_day_of_month ? 2 : 3;
-      auto dow = this->clock->now().day_of_week - 1; // SUN = 0
+      return;
+    }
 
-      for (uint8_t i = 0; i <= 6; i++)
+    int offset = this->show_day_of_month ? 9 : 2;
+    int size = this->show_day_of_month ? 2 : 3;
+    auto dow = this->clock->now().day_of_week - 1; // SUN = 0
+
+    for (uint8_t i = 0; i <= 6; i++)
+    {
+      Color color = this->weekday_color;
+      if (((!EHMTXv3_WEEK_START) && (dow == i)) ||
+          ((EHMTXv3_WEEK_START) && ((dow == (i + 1)) || ((dow == 0 && i == 6)))))
       {
-        Color color = this->weekday_color;
-        if (((!EHMTXv3_WEEK_START) && (dow == i)) ||
-            ((EHMTXv3_WEEK_START) && ((dow == (i + 1)) || ((dow == 0 && i == 6)))))
-        {
-          color = this->today_color;
-        }
-        
-        this->display->line(offset + i * (size + 1) + 1, 7, offset + i * (size + 1) + size, 7, color);
+        color = this->today_color;
       }
+      
+      this->display->line(offset + i * (size + 1) + 1, 7, offset + i * (size + 1) + size, 7, color);
     }
   };
 
