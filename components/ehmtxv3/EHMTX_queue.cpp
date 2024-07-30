@@ -218,7 +218,7 @@ namespace esphome
             if (pos != std::string::npos)
             {
               format.erase(pos, 1);
-              format.insert(pos, "①");
+              format.insert(pos, " ");
             }
           }
 
