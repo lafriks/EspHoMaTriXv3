@@ -1028,6 +1028,11 @@ namespace esphome
     return this->brightness_;
   }
 
+  uint8_t EHMTX::get_current_mode()
+  {
+    return this->queue[this->screen_pointer]->mode;
+  }
+
   void EHMTX::set_clock_time(uint16_t t)
   {
     this->clock_time = t;

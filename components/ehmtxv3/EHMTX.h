@@ -197,6 +197,7 @@ namespace esphome
 
     void update();
     uint8_t get_brightness();
+    uint8_t get_current_mode();
   };
 
   class EHMTXQueue
