@@ -989,6 +989,11 @@ namespace esphome
     }
   }
 
+  bool EHMTX::get_show_day_of_week()
+  {
+    return this->show_day_of_week;
+  }
+
   void EHMTX::set_show_day_of_month(bool b)
   {
     this->show_day_of_month = b;
