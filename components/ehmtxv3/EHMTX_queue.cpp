@@ -209,9 +209,11 @@ namespace esphome
           color_ = (this->mode == MODE_RAINBOW_CLOCK) ? this->config_->rainbow_color : this->text_color;
           time_t ts = this->config_->clock->now().timestamp;
 
+          auto xo = this->config_->show_day_of_month ? 15 : 24;
+
           // TODO: Blink the colon
           // this->config_->clock->now().second % 2 == 0
-          this->config_->display->strftime(xoffset + 15, yoffset, font, color_, display::TextAlign::BASELINE_CENTER, EHMTXv3_TIME_FORMAT,
+          this->config_->display->strftime(xoffset + xo, yoffset, font, color_, display::TextAlign::BASELINE_CENTER, EHMTXv3_TIME_FORMAT,
                                            this->config_->clock->now());
 
           if (this->mode != MODE_RAINBOW_CLOCK)
