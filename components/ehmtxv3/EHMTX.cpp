@@ -819,7 +819,7 @@ namespace esphome
 
     ESP_LOGD(TAG, "rainbow_clock_screen lifetime: %d screen_time: %d", lifetime, screen_time);
     screen->mode = MODE_RAINBOW_CLOCK;
-    screen->default_font = !this->show_day_of_week;
+    screen->default_font = true;
     if (EHMTXv3_CLOCK_INTERVALL == 0 || (EHMTXv3_CLOCK_INTERVALL > screen_time))
     {
       screen->screen_time_ = screen_time;
@@ -840,7 +840,7 @@ namespace esphome
       EHMTXQueue *screen = this->find_free_queue_element();
 
       screen->mode = MODE_RAINBOW_DATE;
-      screen->default_font = !this->show_day_of_week;
+      screen->default_font = true;
       screen->screen_time_ = screen_time;
       screen->endtime = this->clock->now().timestamp + lifetime * 60;
       screen->status();

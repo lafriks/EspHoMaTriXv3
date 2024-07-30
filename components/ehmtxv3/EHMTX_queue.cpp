@@ -211,21 +211,16 @@ namespace esphome
 
           auto xo = this->config_->get_show_day_of_month() ? 20 : 15;
 
-          auto format = std::string(EHMTXv3_TIME_FORMAT);
-          if (this->config_->clock->now().second % 2 == 1)
-          {
-            auto pos = format.find(":", 0);
-            if (pos != std::string::npos)
-            {
-              format.erase(pos, 1);
-              format.insert(pos, "⓪");
-            }
-          }
-
           this->config_->display->strftime(xoffset + xo, yoffset, font, color_,
                                            display::TextAlign::BASELINE_CENTER,
-                                           format.c_str(),
+                                           EHMTXv3_TIME_FORMAT,
                                            this->config_->clock->now());
+
+          // TODO: use get_text_bounds to render without time separator
+          if (EHMTXv3_TIME_FORMAT == "%H:%M" && this->config_->clock->now().second % 2 == 1)
+          {
+            this->config_->display->line(xoffset + xo - 1, yoffset, xoffset + xo + 2, yoffset + 6, esphome::display::COLOR_OFF);
+          }
 
           if (this->mode != MODE_RAINBOW_CLOCK)
           {
