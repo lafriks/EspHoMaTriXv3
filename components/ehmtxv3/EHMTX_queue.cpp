@@ -222,7 +222,7 @@ namespace esphome
             auto c_tm = this->config_->clock->now().to_c_tm();
             size_t buffer_length = 80;
             char temp_buffer[buffer_length];
-            strftime(temp_buffer, buffer_length, formatting, &c_tm);
+            strftime(temp_buffer, buffer_length, EHMTXv3_TIME_FORMAT, &c_tm);
 
             int x1 = 0;
             int y1 = 0;
