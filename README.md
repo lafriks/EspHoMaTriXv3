@@ -535,7 +535,7 @@ ehmtxv3:
   special_font_yoffset: 7
   brightness: 80 # percent
   time_format: "%H:%M"
-  date_format: "%d.%m."
+  date_format: "%d.%m.%Y."
   rtl: false # write vom left to right
   week_start_monday: true # false equals sunday
   scroll_count: 2 # scroll long text at least two times
@@ -549,7 +549,7 @@ ehmtxv3:
 
 **id** (required, ID): Manually specify the ID used for code generation and in service definitions.
 
-**date_format** (optional, string): formats the date display with [strftime syntax](https://esphome.io/components/time.html?highlight=strftime), defaults `"%d.%m."` (use `"%m.%d."` for the US)
+**date_format** (optional, string): formats the date display with [strftime syntax](https://esphome.io/components/time.html?highlight=strftime), defaults `"%d.%m.%Y."` (use `"%y.%m.%d"` for the US)
 
 **time_format** (optional, string): formats the date display with [strftime syntax](https://esphome.io/components/time.html?highlight=strftime), defaults `"%H:%M"` (use `"%I:%M%p"` for the US)
 

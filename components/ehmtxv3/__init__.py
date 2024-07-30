@@ -155,7 +155,7 @@ EHMTX_SCHEMA = cv.Schema({
         CONF_ALWAYS_SHOW_RLINDICATORS, default=False
     ): cv.boolean,
     cv.Optional(
-        CONF_DATE_FORMAT, default="%d.%m."
+        CONF_DATE_FORMAT, default="%d.%m.%Y."
     ): cv.string,
     cv.Optional(
         CONF_DEFAULT_FONT_XOFFSET, default="1"

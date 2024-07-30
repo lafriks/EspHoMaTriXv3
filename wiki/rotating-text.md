@@ -36,7 +36,7 @@ data:
   screen_time: 15
   lifetime: 1440
   text: |-
-          {{  now().strftime("%d.%m.%Y") }}
+    {{  now().strftime("%d.%m.%Y.") }}
 ```
 
 to remove the normal date and time display
