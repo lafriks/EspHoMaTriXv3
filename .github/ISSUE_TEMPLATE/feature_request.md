@@ -8,7 +8,7 @@ assignees: ''
 
 <!-- Make sure to read the documentaion (https://github.com/lafriks/EspHoMaTriXv3/blob/main/README.md) before opening an issue. -->
 
-# Feature Request
+## Feature Request
 
 ### Is your feature request related to a problem?
 

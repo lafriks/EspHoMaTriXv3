@@ -4,7 +4,6 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - 2023.8.0
       - main
   pull_request:
 
@@ -31,13 +30,14 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v4
       - name: Build firmware
-        uses: esphome/build-action@v1.8.0
+        uses: esphome/build-action@v3
         id: esphome-build
         with:
           yaml_file: ${{ matrix.firmware.file }}
           version: latest
+
   build-develop:
     name: Build ${{ matrix.firmware.name }}
     runs-on: ubuntu-latest
@@ -53,9 +53,9 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v4
       - name: Build firmware
-        uses: esphome/build-action@v1.8.0
+        uses: esphome/build-action@v3
         id: esphome-build
         with:
           yaml_file: ${{ matrix.firmware.file }}

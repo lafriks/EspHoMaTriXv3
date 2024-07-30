@@ -8,44 +8,43 @@ assignees: ''
 
 <!-- Make sure to read the documentaion (https://github.com/lafriks/EspHoMaTriXv3/blob/main/README.md) before opening an issue. -->
 
-# Bug report
+## Bug report
 
-## Describe the bug
+### Describe the bug
 
 Add a description of the bug. Detail the expected behavior in contrast with the behavior you're observing.
 
-## Additional information
+### Additional information
 
 - used Hardware:
   - ESP32 or ESP8266
-  - EspHoMatriXv3 version: [e.g. 2023.5.0]
+  - EspHoMatriXv3 version: [e.g. 2024.8.0]
 
-
-## To Reproduce
+### To Reproduce
 
 Steps to reproduce the behavior:
 
-## Expected behavior
+### Expected behavior
 
 A clear and concise description of what you expected to happen.
 
-## Configuration
+### Configuration
 
 ```text
 (optional) The YAML you used in epshome without any password
 ```
 
-## Screenshots
+### Screenshots
 
 If applicable, add screenshots to help explain your problem.
 
-## Logs
+### Logs
 
 ```text
 (optional) Add relevant logs which could help tackle the problem.
 ```
 
-## Services calls
+### Services calls
 
 ```text
 (optional) The YAML of your service calls

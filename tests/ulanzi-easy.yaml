@@ -1,6 +1,6 @@
 substitutions:
-  devicename: ulanzi
-  friendly_name: LED Matrix
+  devicename: ulanzi-tc001
+  friendly_name: Ulanzi TC001
   board: esp32dev
   # Pin definition from https://github.com/aptonline/PixelIt_Ulanzi 
   battery_pin: GPIO34 
@@ -57,14 +57,12 @@ globals:
 
 external_components:
   - source:
-      type: git
-      url: https://github.com/lafriks/EspHoMaTriXv3
-      ref: main
-    refresh: 60s 
+      type: local
+      path: ../components
     components: [ ehmtxv3 ]   
 
 esphome:
-  comment: "EHMTXv3 from LuBeDa"
+  comment: "EHMTXv3 by Lafriks"
   name: $devicename 
   on_boot:
     then:
