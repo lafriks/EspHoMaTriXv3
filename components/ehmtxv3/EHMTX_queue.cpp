@@ -214,7 +214,7 @@ namespace esphome
           auto format = std::string(EHMTXv3_TIME_FORMAT);
           if (this->config_->clock->now().second % 2 == 1)
           {
-            std::replace(format.begin(), format.end(), ':', ' ');
+            std::replace(format.begin(), format.end(), ':', '.');
           }
           ESP_LOGI(TAG, "format: %s", format.c_str());
 
