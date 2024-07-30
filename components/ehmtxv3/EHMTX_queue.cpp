@@ -216,7 +216,6 @@ namespace esphome
           {
             std::replace(format.begin(), format.end(), ':', '.');
           }
-          ESP_LOGI(TAG, "format: %s", format.c_str());
 
           this->config_->display->strftime(xoffset + xo, yoffset, font, color_,
                                            display::TextAlign::BASELINE_CENTER,
