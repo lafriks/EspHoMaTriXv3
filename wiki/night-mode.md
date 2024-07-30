@@ -32,8 +32,8 @@ ehmtx:
     then:
       lambda: |-
         if (id(night_mode)){
-            id(rgb8x32)->clock_screen(10,10,true,140,120,120);
-            id(rgb8x32)->date_screen(10,5,true,120,200,150);
+            id(rgb8x32)->clock_screen(10,10,140,120,120);
+            id(rgb8x32)->date_screen(10,5,120,200,150);
         } else {
           id(rgb8x32)->blank_screen(1,15);
         }

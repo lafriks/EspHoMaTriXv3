@@ -67,7 +67,7 @@ Based on a 8x32 RGB matrix, it displays a clock, the date and up to 24 other 'sc
 
 ### State
 
-After the [v1](https://github.com/lubeda/EsphoMaTrix) component became popular and received additional feature requests it became clear that yhe v1 [v1](https://github.com/lubeda/EsphoMaTrix)code was a bit of a mess. I reworked all of the code and restructured it to hopefully be much more extensible. 
+After the [v1](https://github.com/lubeda/EsphoMaTrix) component became popular and received additional feature requests it became clear that yhe v1 [v1](https://github.com/lubeda/EsphoMaTrix)code was a bit of a mess. I reworked all of the code and restructured it to hopefully be much more extensible.
 **This software is still heavily in development, before updating please check the [Breaking Changes](#breaking-changes)**
 
 ### Advice
@@ -89,7 +89,7 @@ Copy these files from the source folder `copy2esphome`:
 - `ulanzi-simple.yaml`
 - Optional: `1pixel.gif` See: [Attention](#attention)
 
-to your esphome directory (usually `/config/esphome`). 
+to your esphome directory (usually `/config/esphome`).
 
 Grab the font files, that are used in `ulanzi-simple.yaml` from https://github.com/trip5/Matrix-Fonts and save them in `/config/esphome/fonts`.
 
@@ -139,10 +139,10 @@ You can add screens from home assistant with service-calls or from esphome via l
 You can call this from, e.g., the [developer tools service](https://my.home-assistant.io/redirect/developer_services/)
 
 ```c
-clock_screen => {"lifetime", "screen_time", "default_font", "r", "g", "b"}
-rainbow_clock_screen => {"lifetime", "screen_time", "default_font"}
-date_screen => {"lifetime", "screen_time", "default_font", "r", "g", "b"}
-rainbow_date_screen => {"lifetime", "screen_time", "default_font"}
+clock_screen => {"lifetime", "screen_time", "r", "g", "b"}
+rainbow_clock_screen => {"lifetime", "screen_time"}
+date_screen => {"lifetime", "screen_time", "r", "g", "b"}
+rainbow_date_screen => {"lifetime", "screen_time"}
 ```
 
 The rainbow_* variants don't display the day of week bar.
@@ -154,9 +154,9 @@ You can use these in [lambdas](https://esphome.io/guides/automations.html?highli
 all parameters have a default value.
 
 ```c
-void clock_screen(int lifetime=D_LIFETIME, int screen_time=D_SCREEN_TIME,bool default_font=true,int r=C_RED, int g=C_GREEN, int b=C_BLUE);
-void rainbow_clock_screen(int lifetime=D_LIFETIME, int screen_time=D_SCREEN_TIME, bool default_font=true);
-void date_screen(int lifetime=D_LIFETIME, int screen_time=D_SCREEN_TIME,bool default_font=true, int r=C_RED, int g=C_GREEN, int b=C_BLUE);     
+void clock_screen(int lifetime=D_LIFETIME, int screen_time=D_SCREEN_TIME, int r=C_RED, int g=C_GREEN, int b=C_BLUE);
+void rainbow_clock_screen(int lifetime=D_LIFETIME, int screen_time=D_SCREEN_TIME);
+void date_screen(int lifetime=D_LIFETIME, int screen_time=D_SCREEN_TIME, int r=C_RED, int g=C_GREEN, int b=C_BLUE);    
 ```
 
 ##### icon screen
@@ -486,11 +486,11 @@ There are maximum 90 icons possible.
 
 ```yaml
 emhtx:
-  icons: 
-    - id: boot 
+  icons:
+    - id: boot
       file: icons/rocket.GIF
-      duration: 75     
-    - id: temp 
+      duration: 75    
+    - id: temp
       file: temperature.png
     - id: yoga
       file: icons/yoga-bridge.GIF
@@ -541,7 +541,7 @@ ehmtxv3:
   scroll_count: 2 # scroll long text at least two times
   scroll_interval: 80 # milliseconds
   rainbow_interval: 32 # milliseconds
-  icons: 
+  icons:
   .....
 ```
 
@@ -583,8 +583,6 @@ ehmtxv3:
 
 **week_start_monday** (optional, bool): default Monday is first day of week, false => Sunday
 
-**default_clock_font** (optional, boolean): If true, use the default font for clock and date otherwise use the special font. (default = `true`)
-
 **scroll_interval** (optional, ms): the interval in ms to scroll the text (default=80), should be a multiple of the ```update_interval``` of the [display](https://esphome.io/components/display/addressable_light.html)
 
 **clock_interval** (optional, s): the interval in seconds to force the clock display. By default, the clock screen, if any, will be displayed according to the position in the queue. **If you set the clock_interval close to the screen_time of the clock, you will only see the clock!** (default=0)
@@ -592,7 +590,7 @@ ehmtxv3:
 **boot_logo** (optional, string , only on ESP32): Display a fullscreen logo defined as rgb565 array.
 
 ```yaml
-  boot_logo: "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,63519,63519,63519,63519,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,63519,0,0,0,0,2016,0,0,0,0,0,0,0,0,0,0,31,0,0,0,0,0,0,0,0,0,63488,0,63488,0,0,0,63519,0,0,0,0,2016,2016,0,0,0,65514,0,65514,0,0,0,31,0,0,0,64512,0,0,64512,0,63488,63488,0,63488,63488,0,0,63519,63519,63519,0,0,2016,0,2016,0,65514,0,65514,0,65514,0,31,31,31,0,0,0,64512,64512,0,0,63488,63488,63488,63488,63488,0,0,63519,0,0,0,0,2016,0,2016,0,65514,0,65514,0,65514,0,0,31,0,0,0,0,64512,64512,0,0,0,63488,63488,63488,0,0,0,63519,63519,63519,63519,0,2016,0,2016,0,65514,0,65514,0,65514,0,0,0,31,31,0,64512,0,0,64512,0,0,0,63488,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]" 
+  boot_logo: "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,63519,63519,63519,63519,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,63519,0,0,0,0,2016,0,0,0,0,0,0,0,0,0,0,31,0,0,0,0,0,0,0,0,0,63488,0,63488,0,0,0,63519,0,0,0,0,2016,2016,0,0,0,65514,0,65514,0,0,0,31,0,0,0,64512,0,0,64512,0,63488,63488,0,63488,63488,0,0,63519,63519,63519,0,0,2016,0,2016,0,65514,0,65514,0,65514,0,31,31,31,0,0,0,64512,64512,0,0,63488,63488,63488,63488,63488,0,0,63519,0,0,0,0,2016,0,2016,0,65514,0,65514,0,65514,0,0,31,0,0,0,0,64512,64512,0,0,0,63488,63488,63488,0,0,0,63519,63519,63519,63519,0,2016,0,2016,0,65514,0,65514,0,65514,0,0,0,31,31,0,64512,0,0,64512,0,0,0,63488,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]"
 ```
 
 If defined you can use the services `display_boot_logo` and `display_version` to display the defined logo or the version of ehmtx.
@@ -631,7 +629,7 @@ See [icon details](#icons-and-animations)
 Numerous features are accessible with services from home assistant and lambdas that you can use in your YAML.
 
 ### Public functions/services
-  
+ 
 |service|parameter|result|
 |---|---|---|
 |`get_status`|none|write some status information to the esphome logs|
@@ -654,10 +652,10 @@ Numerous features are accessible with services from home assistant and lambdas t
 |`rainbow_icon_screen`|"icon_name", "text", "lifetime", "screen_time", "default_font"|show the specified icon with text in rainbow color|
 |`text_screen`|"text", "lifetime", "screen_time", "default_font", "r", "g", "b"|show the specified text|
 |`rainbow_text_screen`|"text", "lifetime", "screen_time", "default_font"|show the specified text in rainbow colors|
-|`clock_screen`|"lifetime", "screen_time", "default_font", "r", "g", "b"|show the clock|
-|`rainbow_clock_screen`|"lifetime", "screen_time", "default_font"|show the clock in rainbow color|
+|`clock_screen`|"lifetime", "screen_time", "r", "g", "b"|show the clock|
+|`rainbow_clock_screen`|"lifetime", "screen_time"|show the clock in rainbow color|
 |`blank_screen`|"lifetime", "screen_time"|"show" an empty screen|
-|`date_screen`|"lifetime", "screen_time", "default_font", "r", "g", "b"|show the date|
+|`date_screen`|"lifetime", "screen_time", "r", "g", "b"|show the date|
 |`brightness`|"value"|set the display brightness|
 
 #### Parameter description
@@ -670,7 +668,7 @@ Numerous features are accessible with services from home assistant and lambdas t
 "lifetime": how long does this screen stay in the queue (minutes)
 "screen_time": how long is this screen display in the loop (seconds). For short text without scrolling it is shown the defined time, longer text is scrolled at least `scroll_count` times.
 "default_font": use the default font (true) or the special font (false)
-"value": the brightness 0..255 
+"value": the brightness 0..255
 
 ### Local lambdas
 
@@ -1053,7 +1051,7 @@ action:
       icon_name: >-
         trash_{{ states("sensor.mulldetails") | replace("Biotonne",   "brow")|
         replace("Papiertonne","blue")| replace("Restmüll",   "grey")|
-        replace("gelbe Tonne","yell|") | truncate(4,true,"")  }}     
+        replace("gelbe Tonne","yell|") | truncate(4,true,"")  }}    
       text: >-
         {{ states("sensor.mulldetails")|replace(" in","")|replace(" days","
         Tagen") | replace ("0 Tagen","heute") | replace ("1 Tagen","morgen")}}

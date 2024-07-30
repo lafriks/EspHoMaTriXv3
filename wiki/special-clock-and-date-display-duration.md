@@ -10,14 +10,14 @@ add this to your config:
 
 ```yaml
   on_start_running:
-    then:  
+    then:
       lambda: |-
         ESP_LOGD(TAG, "removing date screen and setting a new one with new screen time");
         id(rgb8x32)->del_screen("*", 3);
-        id(rgb8x32)->date_screen(1440, 5, true, 192, 192, 192);
+        id(rgb8x32)->date_screen(1440, 5, 192, 192, 192);
         ESP_LOGD(TAG, "removing default clock screen and setting a new one with new screen time");
         id(rgb8x32)->del_screen("*", 2);
-        id(rgb8x32)->clock_screen(1440, 55, true, 192, 192, 192);
+        id(rgb8x32)->clock_screen(1440, 55, 192, 192, 192);
 ```
 
 ## old Method:

@@ -14,5 +14,5 @@ ehmtxv3:
       lambda: |-
         ESP_LOGD(TAG, "remove default clock and set new color");
         id(rgb8x32)->del_screen("*", 2);
-        id(rgb8x32)->clock_screen(10,10,true,200,10,100);
+        id(rgb8x32)->clock_screen(10,10,200,10,100);
 ```

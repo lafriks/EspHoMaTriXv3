@@ -88,7 +88,6 @@ CONF_RAINBOWINTERVAL = "rainbow_interval"
 CONF_FRAMEINTERVAL = "frame_interval"
 CONF_DEFAULT_FONT_ID = "default_font_id"
 CONF_DEFAULT_FONT = "default_font"
-CONF_CLOCKFONT = "default_clock_font"
 CONF_DEFAULT_FONT_XOFFSET = "default_font_xoffset"
 CONF_DEFAULT_FONT_YOFFSET = "default_font_yoffset"
 CONF_SPECIAL_FONT_ID = "special_font_id"
@@ -120,9 +119,6 @@ EHMTX_SCHEMA = cv.Schema({
     ): cv.templatable(cv.positive_int),
     cv.Optional(
         CONF_HTML, default=False
-    ): cv.boolean,
-    cv.Optional(
-        CONF_CLOCKFONT, default=True
     ): cv.boolean,
      cv.Optional(
         CONF_RTL, default=False
@@ -273,7 +269,7 @@ async def to_code(config):
     yaml_string= ""
 
     for conf in config[CONF_ICONS]:
-                
+
         if CONF_FILE in conf:
             path = CORE.relative_config_path(conf[CONF_FILE])
             try:
@@ -302,8 +298,8 @@ async def to_code(config):
                 for y in range(0,8):
                     for x in range(0,32):
                         image.putpixel((x,y),rgb565_888(r[x+y*32]))
-                        
-                           
+
+
         width, height = image.size
 
         if CONF_RESIZE in conf:
@@ -321,7 +317,7 @@ async def to_code(config):
         else:
             if (conf[CONF_FRAMEDURATION] == 0):
                 try:
-                    duration =  image.info['duration']         
+                    duration =  image.info['duration']
                 except:
                     duration = config[CONF_FRAMEINTERVAL]
             else:
@@ -329,12 +325,12 @@ async def to_code(config):
 
             html_string += F"<BR><B>{conf[CONF_ID]}</B>&nbsp;-&nbsp;({duration} ms):<BR>"
             yaml_string += F"\"{conf[CONF_ID]}\","
-            pos = 0 
+            pos = 0
             frameIndex = 0
             html_string += f"<DIV ID={conf[CONF_ID]}>"
             data = [0 for _ in range(ICONBUFFERSIZE * 2 * frames)]
             for frameIndex in range(frames):
-                
+
                 image.seek(frameIndex)
                 frame = image.convert("RGB")
                 if CONF_RESIZE in conf:
@@ -342,9 +338,9 @@ async def to_code(config):
 
                 pixels = list(frame.getdata())
 
-                
+
                 # width, height = image.size
-                if width == 8:  
+                if width == 8:
                     html_string += SVG_ICONSTART
                 else:
                     html_string += SVG_FULL_SCREEN_START
@@ -364,7 +360,7 @@ async def to_code(config):
                     pos += 1
                 html_string += SVG_END
             html_string += f"</DIV>"
-        
+
             rhs = [HexInt(x) for x in data]
 
             prog_arr = cg.progmem_array(conf[CONF_RAW_DATA_ID], rhs)
@@ -384,7 +380,7 @@ async def to_code(config):
             cg.add(var.add_icon(RawExpression(str(conf[CONF_ID]))))
 
     html_string += "</BODY></HTML>"
-    
+
     if config[CONF_HTML]:
         try:
             htmlfn = CORE.config_path.replace(".yaml","") + ".html"
@@ -395,10 +391,10 @@ async def to_code(config):
                 logging.info(f"EsphoMaTrix: wrote html-file with icon preview: {htmlfn}")
 
         except:
-            logging.warning(f"EsphoMaTrix: Error writing HTML file: {htmlfn}")    
-    
+            logging.warning(f"EsphoMaTrix: Error writing HTML file: {htmlfn}")
+
     logging.info("List of icons for e.g. blueprint:\n\n\r["+yaml_string+"]\n")
-    
+
     disp = await cg.get_variable(config[CONF_MATRIXCOMPONENT])
     cg.add(var.set_display(disp))
 
@@ -412,7 +408,7 @@ async def to_code(config):
     cg.add(var.set_special_font(f))
 
     cg.add(var.set_brightness(config[CONF_BRIGHTNESS]))
-    
+
     if config[CONF_ALWAYS_SHOW_RLINDICATORS]:
         cg.add_define("EHMTXv3_ALWAYS_SHOW_RLINDICATORS")
 
@@ -426,13 +422,12 @@ async def to_code(config):
     cg.add_define("EHMTXv3_DEFAULT_FONT_OFFSET_Y",config[CONF_DEFAULT_FONT_YOFFSET])
     cg.add_define("EHMTXv3_SPECIAL_FONT_OFFSET_X",config[CONF_SPECIAL_FONT_XOFFSET])
     cg.add_define("EHMTXv3_SPECIAL_FONT_OFFSET_Y",config[CONF_SPECIAL_FONT_YOFFSET])
-    cg.add_define("EHMTXv3_DEFAULT_CLOCK_FONT",config[CONF_CLOCKFONT])    
-    cg.add_define("EHMTXv3_DATE_FORMAT",config[CONF_DATE_FORMAT])    
-    cg.add_define("EHMTXv3_TIME_FORMAT",config[CONF_TIME_FORMAT])    
-    
+    cg.add_define("EHMTXv3_DATE_FORMAT",config[CONF_DATE_FORMAT])
+    cg.add_define("EHMTXv3_TIME_FORMAT",config[CONF_TIME_FORMAT])
+
     if config.get(CONF_BOOTLOGO):
         cg.add_define("EHMTXv3_BOOTLOGO",config[CONF_BOOTLOGO])
-    
+
     if config[CONF_SCROLL_SMALL_TEXT]:
         cg.add_define("EHMTXv3_SCROLL_SMALL_TEXT")
     if config[CONF_ALLOW_EMPTY_SCREEN]:
@@ -441,12 +436,12 @@ async def to_code(config):
         cg.add_define("EHMTXv3_BLEND_STEPS",config[CONF_BLENDSTEPS])
 
     if config[CONF_RTL]:
-        cg.add_define("EHMTXv3_USE_RTL")    
-    
+        cg.add_define("EHMTXv3_USE_RTL")
+
     cg.add(var.set_show_day_of_week(config[CONF_SHOWDOW]))
     cg.add(var.set_show_day_of_month(config[CONF_SHOWDAY]))
     cg.add(var.set_show_date(config[CONF_SHOWDATE]))
-    
+
     for conf in config.get(CONF_ON_NEXT_SCREEN, []):
         trigger = cg.new_Pvariable(conf[CONF_TRIGGER_ID], var)
         await automation.build_automation(trigger, [(cg.std_string, "icon"), (cg.std_string, "text")], conf)
@@ -466,7 +461,7 @@ async def to_code(config):
     for conf in config.get(CONF_ON_ADD_SCREEN, []):
         trigger = cg.new_Pvariable(conf[CONF_TRIGGER_ID], var)
         await automation.build_automation(trigger, [(cg.std_string, "icon"), (cg.uint8 , "mode")] , conf)
-   
+
     for conf in config.get(CONF_ON_START_RUNNING, []):
         trigger = cg.new_Pvariable(conf[CONF_TRIGGER_ID], var)
         await automation.build_automation(trigger, [] , conf)

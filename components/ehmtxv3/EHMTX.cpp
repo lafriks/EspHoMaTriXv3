@@ -339,12 +339,11 @@ namespace esphome
     register_service(&EHMTX::text_screen, "text_screen", {"text", "lifetime", "screen_time", "default_font", "r", "g", "b"});
     register_service(&EHMTX::rainbow_text_screen, "rainbow_text_screen", {"text", "lifetime", "screen_time", "default_font"});
 
-    register_service(&EHMTX::clock_screen, "clock_screen", {"lifetime", "screen_time", "default_font", "r", "g", "b"});
+    register_service(&EHMTX::clock_screen, "clock_screen", {"lifetime", "screen_time", "r", "g", "b"});
+    register_service(&EHMTX::rainbow_clock_screen, "rainbow_clock_screen", {"lifetime", "screen_time"});
 
-    register_service(&EHMTX::rainbow_clock_screen, "rainbow_clock_screen", {"lifetime", "screen_time", "default_font"});
-
-    register_service(&EHMTX::date_screen, "date_screen", {"lifetime", "screen_time", "default_font", "r", "g", "b"});
-    register_service(&EHMTX::rainbow_date_screen, "rainbow_date_screen", {"lifetime", "screen_time", "default_font"});
+    register_service(&EHMTX::date_screen, "date_screen", {"lifetime", "screen_time", "r", "g", "b"});
+    register_service(&EHMTX::rainbow_date_screen, "rainbow_date_screen", {"lifetime", "screen_time"});
 
     register_service(&EHMTX::blank_screen, "blank_screen", {"lifetime", "screen_time"});
 
@@ -401,8 +400,8 @@ namespace esphome
     this->clock_color = Color((uint8_t)r & 248, (uint8_t)g & 252, (uint8_t)b & 248);
     this->del_screen("*", 3);
     this->del_screen("*", 2);
-    this->clock_screen(24 * 60, this->clock_time, false, this->clock_color[0], this->clock_color[1], this->clock_color[2]);
-    this->date_screen(24 * 60, (int)this->clock_time / 2, false, this->clock_color[0], this->clock_color[1], this->clock_color[2]);
+    this->clock_screen(24 * 60, this->clock_time, this->clock_color[0], this->clock_color[1], this->clock_color[2]);
+    this->date_screen(24 * 60, (int)this->clock_time / 2, this->clock_color[0], this->clock_color[1], this->clock_color[2]);
     ESP_LOGD(TAG, "default clock color r: %d g: %d b: %d", r, g, b);
   }
 
@@ -426,8 +425,8 @@ namespace esphome
         this->bitmap_screen(EHMTXv3_BOOTLOGO, 1, 10);
 #endif
 #endif
-        this->clock_screen(14 * 24 * 60, this->clock_time, EHMTXv3_DEFAULT_CLOCK_FONT, this->clock_color[0], this->clock_color[1], this->clock_color[2]);
-        this->date_screen(14 * 24 * 60, (int)this->clock_time / 2, EHMTXv3_DEFAULT_CLOCK_FONT, this->clock_color[0], this->clock_color[1], this->clock_color[2]);
+        this->clock_screen(14 * 24 * 60, this->clock_time, this->clock_color[0], this->clock_color[1], this->clock_color[2]);
+        this->date_screen(14 * 24 * 60, (int)this->clock_time / 2, this->clock_color[0], this->clock_color[1], this->clock_color[2]);
         this->is_running = true;
         for (auto *t : on_start_running_triggers_)
         {
@@ -632,8 +631,8 @@ namespace esphome
         {
 #ifndef EHMTXv3_ALLOW_EMPTY_SCREEN
           ESP_LOGW(TAG, "tick: nothing to do. Restarting clock display!");
-          this->clock_screen(24 * 60, this->clock_time, false, this->clock_color[0], this->clock_color[1], this->clock_color[2]);
-          this->date_screen(24 * 60, (int)this->clock_time / 2, false, this->clock_color[0], this->clock_color[1], this->clock_color[2]);
+          this->clock_screen(24 * 60, this->clock_time, this->clock_color[0], this->clock_color[1], this->clock_color[2]);
+          this->date_screen(24 * 60, (int)this->clock_time / 2, this->clock_color[0], this->clock_color[1], this->clock_color[2]);
           this->next_action_time = ts + this->clock_time;
 #endif
         }
@@ -814,13 +813,13 @@ namespace esphome
     screen->status();
   }
 
-  void EHMTX::rainbow_clock_screen(int lifetime, int screen_time, bool default_font)
+  void EHMTX::rainbow_clock_screen(int lifetime, int screen_time)
   {
     EHMTXQueue *screen = this->find_free_queue_element();
 
     ESP_LOGD(TAG, "rainbow_clock_screen lifetime: %d screen_time: %d", lifetime, screen_time);
     screen->mode = MODE_RAINBOW_CLOCK;
-    screen->default_font = default_font;
+    screen->default_font = !this->show_day_of_week;
     if (EHMTXv3_CLOCK_INTERVALL == 0 || (EHMTXv3_CLOCK_INTERVALL > screen_time))
     {
       screen->screen_time_ = screen_time;
@@ -833,7 +832,7 @@ namespace esphome
     screen->status();
   }
 
-  void EHMTX::rainbow_date_screen(int lifetime, int screen_time, bool default_font)
+  void EHMTX::rainbow_date_screen(int lifetime, int screen_time)
   {
     ESP_LOGD(TAG, "rainbow_date_screen lifetime: %d screen_time: %d", lifetime, screen_time);
     if (this->show_date)
@@ -841,7 +840,7 @@ namespace esphome
       EHMTXQueue *screen = this->find_free_queue_element();
 
       screen->mode = MODE_RAINBOW_DATE;
-      screen->default_font = default_font;
+      screen->default_font = !this->show_day_of_week;
       screen->screen_time_ = screen_time;
       screen->endtime = this->clock->now().timestamp + lifetime * 60;
       screen->status();
@@ -904,19 +903,19 @@ namespace esphome
     screen->status();
   }
 
-  void EHMTX::clock_screen(int lifetime, int screen_time, bool default_font, int r, int g, int b)
+  void EHMTX::clock_screen(int lifetime, int screen_time, int r, int g, int b)
   {
     EHMTXQueue *screen = this->find_free_queue_element();
     screen->text_color = Color(r, g, b);
     ESP_LOGD(TAG, "clock_screen_color lifetime: %d screen_time: %d red: %d green: %d blue: %d", lifetime, screen_time, r, g, b);
     screen->mode = MODE_CLOCK;
-    screen->default_font = default_font;
+    screen->default_font = !this->show_day_of_week;
     screen->screen_time_ = screen_time;
     screen->endtime = this->clock->now().timestamp + lifetime * 60;
     screen->status();
   }
 
-  void EHMTX::date_screen(int lifetime, int screen_time, bool default_font, int r, int g, int b)
+  void EHMTX::date_screen(int lifetime, int screen_time, int r, int g, int b)
   {
     ESP_LOGD(TAG, "date_screen lifetime: %d screen_time: %d red: %d green: %d blue: %d", lifetime, screen_time, r, g, b);
     if (this->show_date)
@@ -927,7 +926,7 @@ namespace esphome
 
       screen->mode = MODE_DATE;
       screen->screen_time_ = screen_time;
-      screen->default_font = default_font;
+      screen->default_font = !this->show_day_of_week;
       screen->endtime = this->clock->now().timestamp + lifetime * 60;
       screen->status();
     }
@@ -1077,7 +1076,7 @@ namespace esphome
       {
         color = this->today_color;
       }
-      
+
       this->display->line(offset + i * (size + 1) + 1, 7, offset + i * (size + 1) + size, 7, color);
     }
   };
