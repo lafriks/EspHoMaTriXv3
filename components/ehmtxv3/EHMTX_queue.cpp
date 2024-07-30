@@ -219,7 +219,21 @@ namespace esphome
           // TODO: use get_text_bounds to render without time separator
           if (/*strcmp(EHMTXv3_TIME_FORMAT, "%H:%M") == 0 && */this->config_->clock->now().second % 2 == 1)
           {
-            this->config_->display->filled_rectangle(xoffset + xo - 1, yoffset, 3, 6, color_/*esphome::display::COLOR_OFF*/);
+            auto c_tm = this->config_->clock->now().to_c_tm();
+            size_t buffer_length = 80;
+            char temp_buffer[buffer_length];
+            strftime(temp_buffer, buffer_length, formatting, &c_tm);
+
+            int x1 = 0;
+            int y1 = 0;
+            int width = 0;
+            int height = 0;
+
+            this->config_->display->get_text_bounds(xoffset + xo, yoffset, temp_buffer, font, display::TextAlign::BASELINE_CENTER, &x1, &y1, &width, &height);
+
+            int xc = x1 + width / 2;
+
+            this->config_->display->filled_rectangle(xc - 1, y1, 3, 6, color_/*esphome::display::COLOR_OFF*/);
           }
 
           if (this->mode != MODE_RAINBOW_CLOCK)
