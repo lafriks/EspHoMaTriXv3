@@ -214,7 +214,12 @@ namespace esphome
           auto format = std::string(EHMTXv3_TIME_FORMAT);
           if (this->config_->clock->now().second % 2 == 1)
           {
-            std::replace(format.begin(), format.end(), ':', '.');
+            auto pos = format.find(":", 0);
+            if (pos != std::string::npos)
+            {
+              format.erase(pos, 1);
+              format.insert(pos, "①");
+            }
           }
 
           this->config_->display->strftime(xoffset + xo, yoffset, font, color_,
