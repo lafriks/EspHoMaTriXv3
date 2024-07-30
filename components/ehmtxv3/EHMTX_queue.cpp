@@ -211,9 +211,15 @@ namespace esphome
 
           auto xo = this->config_->get_show_day_of_month() ? 20 : 15;
 
-          // TODO: Blink the colon
-          // this->config_->clock->now().second % 2 == 0
-          this->config_->display->strftime(xoffset + xo, yoffset, font, color_, display::TextAlign::BASELINE_CENTER, EHMTXv3_TIME_FORMAT,
+          auto format = std::string(EHMTXv3_TIME_FORMAT);
+          if (this->config_->clock->now().second % 2 == 1)
+          {
+            format = format.replace(format.begin(), format.end(), ":", " ");
+          }
+
+          this->config_->display->strftime(xoffset + xo, yoffset, font, color_,
+                                           display::TextAlign::BASELINE_CENTER,
+                                           format.c_str(),
                                            this->config_->clock->now());
 
           if (this->mode != MODE_RAINBOW_CLOCK)
