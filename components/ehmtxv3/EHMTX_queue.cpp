@@ -209,7 +209,7 @@ namespace esphome
           color_ = (this->mode == MODE_RAINBOW_CLOCK) ? this->config_->rainbow_color : this->text_color;
           time_t ts = this->config_->clock->now().timestamp;
 
-          auto xo = this->config_->get_show_day_of_month() ? 24 : 15;
+          auto xo = this->config_->get_show_day_of_month() ? 20 : 15;
 
           // TODO: Blink the colon
           // this->config_->clock->now().second % 2 == 0
