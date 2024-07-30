@@ -7,9 +7,10 @@
 
 ## Important
 
-With the ulanzi-hardware and esphome 2024.2.0 you have to remove all the rtttl stuff to make things work!!!
-
-The hardware design of the ulanzi isn't perfect. If your ulanzi makes a crazy beeping noise after removinf the rtttl-component you may use this setting to make it silent again.
+With the ulanzi-hardware and esphome 2024.2.0 if you do not
+use buzzer component and your ulanzi makes a crazy beeping
+noise after removinf the rtttl-component you may use this
+setting to make it silent:
 
 ```yaml
 output:
@@ -18,7 +19,6 @@ output:
       number: GPIO15
       ignore_strapping_warning: true
     id: buzzer_pin
-
 ```
 
 ## Attention
@@ -38,12 +38,6 @@ animation:
 ```
 
 You have also to copy the file 1pixel.gif from the copy2esphome folder to the directory with your yaml.
-
-Also there might be [breaking changes](#breaking-changes) due to a redesign of EspHoMatriXv3.
-
-## Important information
-
-If you like this project, please donate a star on GitHub and consider [sponsoring](https://www.paypal.com/donate/?hosted_button_id=FZDKSLQ46HJTU) me!
 
 ## Introduction
 
