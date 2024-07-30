@@ -233,7 +233,7 @@ namespace esphome
 
             int xc = x1 + (width - (width % 2)) / 2;
 
-            this->config_->display->filled_rectangle(xc - 1, y1, 3, 5, esphome::display::COLOR_OFF);
+            this->config_->display->filled_rectangle(xc - 1, y1, 3, width, esphome::display::COLOR_OFF);
           }
 
           if (this->mode != MODE_RAINBOW_CLOCK)
