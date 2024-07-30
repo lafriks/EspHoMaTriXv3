@@ -217,7 +217,7 @@ namespace esphome
                                            this->config_->clock->now());
 
           // TODO: use get_text_bounds to render without time separator
-          if (EHMTXv3_TIME_FORMAT == "%H:%M" && this->config_->clock->now().second % 2 == 1)
+          if (strcmp(EHMTXv3_TIME_FORMAT, "%H:%M") == 0 && this->config_->clock->now().second % 2 == 1)
           {
             this->config_->display->filled_rectangle(yoffset, xoffset + xo - 1, 3, 6, color_/*esphome::display::COLOR_OFF*/);
           }
