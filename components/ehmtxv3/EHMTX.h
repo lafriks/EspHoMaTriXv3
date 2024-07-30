@@ -129,7 +129,7 @@ namespace esphome
     uint8_t find_last_clock();
     bool string_has_ending(std::string const &fullString, std::string const &ending);
     void draw_day_of_month();
-    void draw_day_of_week();
+    void draw_day_of_week(bool fullscreen);
     void show_all_icons();
     void tick();
     void draw();
@@ -141,6 +141,7 @@ namespace esphome
     void set_clock_time(uint16_t t = 10);
     void set_show_day_of_week(bool b = true);
     void set_show_day_of_month(bool b = true);
+    bool get_show_day_of_month();
     void set_show_date(bool b = true);
     void set_brightness(int b);
     void set_display_on();

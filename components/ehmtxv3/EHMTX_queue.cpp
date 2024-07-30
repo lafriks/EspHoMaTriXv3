@@ -209,7 +209,7 @@ namespace esphome
           color_ = (this->mode == MODE_RAINBOW_CLOCK) ? this->config_->rainbow_color : this->text_color;
           time_t ts = this->config_->clock->now().timestamp;
 
-          auto xo = this->config_->show_day_of_month ? 15 : 24;
+          auto xo = this->config_->get_show_day_of_month() ? 15 : 24;
 
           // TODO: Blink the colon
           // this->config_->clock->now().second % 2 == 0
@@ -219,7 +219,7 @@ namespace esphome
           if (this->mode != MODE_RAINBOW_CLOCK)
           {
             this->config_->draw_day_of_month();
-            this->config_->draw_day_of_week();
+            this->config_->draw_day_of_week(false);
           }
         }
         else
@@ -238,8 +238,7 @@ namespace esphome
 
           if (this->mode != MODE_RAINBOW_DATE)
           {
-            this->config_->draw_day_of_month();
-            this->config_->draw_day_of_week();
+            this->config_->draw_day_of_week(true);
           }
         }
         else

@@ -1003,6 +1003,11 @@ namespace esphome
     }
   }
 
+  bool EHMTX::get_show_day_of_month()
+  {
+    return this->show_day_of_month;
+  }
+
   void EHMTX::set_brightness(int value)
   {
     if (value < 256)
@@ -1053,15 +1058,15 @@ namespace esphome
                          "%d", day);
   }
 
-  void EHMTX::draw_day_of_week()
+  void EHMTX::draw_day_of_week(bool fullscreen)
   {
     if (!this->show_day_of_week)
     {
       return;
     }
 
-    int offset = this->show_day_of_month ? 9 : 2;
-    int size = this->show_day_of_month ? 2 : 3;
+    int offset = !fullscreen && this->show_day_of_month ? 9 : 2;
+    int size = !fullscreen && this->show_day_of_month ? 2 : 3;
     auto dow = this->clock->now().day_of_week - 1; // SUN = 0
 
     for (uint8_t i = 0; i <= 6; i++)
