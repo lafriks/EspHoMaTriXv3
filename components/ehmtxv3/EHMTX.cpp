@@ -137,7 +137,7 @@ namespace esphome
     screen->text = "";
     screen->endtime = this->clock->now().timestamp + lifetime * 60;
     screen->mode = MODE_BITMAP_SCREEN;
-    screen->screen_time_ = screen_time;
+    screen->screen_time = screen_time;
     for (auto *t : on_add_screen_triggers_)
     {
       t->process("bitmap", (uint8_t)screen->mode);
@@ -408,7 +408,7 @@ namespace esphome
   void EHMTX::blank_screen(int lifetime, int showtime)
   {
     auto scr = this->find_free_queue_element();
-    scr->screen_time_ = showtime;
+    scr->screen_time = showtime;
     scr->mode = MODE_BLANK;
     scr->endtime = this->clock->now().timestamp + lifetime * 60;
   }
@@ -457,7 +457,7 @@ namespace esphome
           {
             ESP_LOGD(TAG, "force_screen: found position: %d", i);
             this->queue[i]->last_time = 0;
-            this->queue[i]->endtime += this->queue[i]->screen_time_;
+            this->queue[i]->endtime += this->queue[i]->screen_time;
             this->next_action_time = this->clock->now().timestamp;
             ESP_LOGW(TAG, "force_screen: icon %s in mode %d", icon_name.c_str(), mode);
           }
@@ -605,7 +605,7 @@ namespace esphome
         if (this->screen_pointer != MAXQUEUE)
         {
 
-          this->queue[this->screen_pointer]->last_time = ts + this->queue[this->screen_pointer]->screen_time_;
+          this->queue[this->screen_pointer]->last_time = ts + this->queue[this->screen_pointer]->screen_time;
           if (this->queue[this->screen_pointer]->icon < this->icon_count)
           {
             this->icons[this->queue[this->screen_pointer]->icon]->set_frame(0);
@@ -822,11 +822,11 @@ namespace esphome
     screen->default_font = true;
     if (EHMTXv3_CLOCK_INTERVALL == 0 || (EHMTXv3_CLOCK_INTERVALL > screen_time))
     {
-      screen->screen_time_ = screen_time;
+      screen->screen_time = screen_time;
     }
     else
     {
-      screen->screen_time_ = EHMTXv3_CLOCK_INTERVALL - 2;
+      screen->screen_time = EHMTXv3_CLOCK_INTERVALL - 2;
     }
     screen->endtime = this->clock->now().timestamp + lifetime * 60;
     screen->status();
@@ -841,7 +841,7 @@ namespace esphome
 
       screen->mode = MODE_RAINBOW_DATE;
       screen->default_font = true;
-      screen->screen_time_ = screen_time;
+      screen->screen_time = screen_time;
       screen->endtime = this->clock->now().timestamp + lifetime * 60;
       screen->status();
     }
@@ -893,7 +893,7 @@ namespace esphome
     screen->mode = MODE_FULL_SCREEN;
     screen->icon = icon;
     screen->icon_name = iconname;
-    screen->screen_time_ = screen_time;
+    screen->screen_time = screen_time;
     screen->endtime = this->clock->now().timestamp + lifetime * 60;
     for (auto *t : on_add_screen_triggers_)
     {
@@ -910,7 +910,7 @@ namespace esphome
     ESP_LOGD(TAG, "clock_screen_color lifetime: %d screen_time: %d red: %d green: %d blue: %d", lifetime, screen_time, r, g, b);
     screen->mode = MODE_CLOCK;
     screen->default_font = !this->show_day_of_week;
-    screen->screen_time_ = screen_time;
+    screen->screen_time = screen_time;
     screen->endtime = this->clock->now().timestamp + lifetime * 60;
     screen->status();
   }
@@ -925,7 +925,7 @@ namespace esphome
       screen->text_color = Color(r, g, b);
 
       screen->mode = MODE_DATE;
-      screen->screen_time_ = screen_time;
+      screen->screen_time = screen_time;
       screen->default_font = !this->show_day_of_week;
       screen->endtime = this->clock->now().timestamp + lifetime * 60;
       screen->status();
@@ -1031,6 +1031,11 @@ namespace esphome
   uint8_t EHMTX::get_current_mode()
   {
     return this->queue[this->screen_pointer]->mode;
+  }
+
+  std::string EHMTX::get_current_mode_name()
+  {
+    return this->queue[this->screen_pointer]->get_mode_name();
   }
 
   void EHMTX::set_clock_time(uint16_t t)

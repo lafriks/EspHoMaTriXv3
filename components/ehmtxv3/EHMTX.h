@@ -198,16 +198,17 @@ namespace esphome
     void update();
     uint8_t get_brightness();
     uint8_t get_current_mode();
+    std::string get_current_mode_name();
   };
 
   class EHMTXQueue
   {
   protected:
-    EHMTX *config_;
+    EHMTX *config;
 
   public:
-    uint16_t pixels_;
-    uint16_t screen_time_;
+    uint16_t pixels;
+    uint16_t screen_time;
     bool default_font;
     time_t endtime;
     time_t last_time;
@@ -228,6 +229,7 @@ namespace esphome
     EHMTXQueue(EHMTX *config);
 
     void status();
+    std::string get_mode_name();
     void draw();
     bool isfree();
     bool update_slot(uint8_t _icon);
